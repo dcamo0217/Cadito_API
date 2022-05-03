@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const userRoutes = require("./routes/user"); //import routes of user
+const postRoutes = require("./routes/post"); //import routes of post
 const cors = require("cors");
 
 const app = express();
@@ -11,6 +12,7 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 app.use(cors());
 app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
 //routes
 app.get("/", (req, res) => {
