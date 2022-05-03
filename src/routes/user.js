@@ -1,5 +1,4 @@
 const express = require("express");
-const user = require("../models/user");
 const userSchema = require("../models/user");
 
 const router = express.Router();
@@ -31,41 +30,34 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//Get all users
-router.get("/", (req, res) => {
-  userSchema
-    .find()
-    .then((data) => res.json(data)) //Send the user in JSON format if the save is successful
-    .catch((error) => res.json({ message: error })); //Send an error message if the save is not successful
+//PREV USERS
+router.post("/prev-login", async (req, res) => {
+  const { user_id } = req.body;
+  try {
+    const user = await userSchema.findById(user_id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    } else {
+      return res.status(200).json(user);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
 });
 
-//Get a user by id
-router.get("/:id", (req, res) => {
-  const { id } = req.params; //Get the id of the user from params of the request
-  userSchema
-    .findById(id) //Find the user in the database with the id
-    .then((data) => res.json(data)) //Send the user in JSON format if the save is successful
-    .catch((error) => res.json({ message: error })); //Send an error message if the save is not successful
-});
-
-//Update a user by id
-router.put("/:id", (req, res) => {
-  const { id } = req.params; //Get the id of the user from params of the request
-  const { name, age, email } = req.body; //Get the name, age and email of the user from the body of the request
-  userSchema
-    .updateOne({ _id: id }, { $set: { name: name, age: age, email: email } }) //Update the user in the database with the id and the name, age and email of the user
-    .then((data) => res.json(data)) //Send the user in JSON format if the save is successful
-    .catch((error) => res.json({ message: error })); //Send an error message if the save is not successful
-});
-
-//Delete a user by id
-router.delete("/:id", (req, res) => {
-  const { id } = req.params; //Get the id of the user from params of the request
-
-  userSchema
-    .remove({ _id: id })
-    .then((data) => res.json(data)) //Send the user in JSON format if the save is successful
-    .catch((error) => res.json({ message: error })); //Send an error message if the save is not successful
+//FETCH USER
+router.get("/", async (req, res) => {
+  const { user_id } = req.query;
+  try {
+    const user = await userSchema.findById(user_id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    } else {
+      return res.status(200).json(user);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
 });
 
 module.exports = router;
