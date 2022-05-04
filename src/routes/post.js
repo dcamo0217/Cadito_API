@@ -22,24 +22,18 @@ router.post("/", async (req, res) => {
 
 //FETCH USER POSTS
 router.get("/", async (req, res) => {
-  const { user_id } = req.query;
+  const { user_id, post_id } = req.query;
   try {
-    const posts = await postSchema.find({ user_id });
-    return res.status(200).json(posts);
-  } catch (error) {
-    return res.status(500).json({ message: error });
-  }
-});
-
-//FETCH POST
-router.get("/", async (req, res) => {
-  const { post_id } = req.query;
-  try {
-    const post = await postSchema.findById(post_id);
-    if (post) {
-      return res.status(200).json(post);
+    if (post_id) {
+      const post = await postSchema.findById(post_id);
+      if (post) {
+        return res.status(200).json(post);
+      } else {
+        return res.status(404).json({ message: "Post not found" });
+      }
     } else {
-      return res.status(404).json({ message: "Post not found" });
+      const posts = await postSchema.find({ user_id });
+      return res.status(200).json(posts);
     }
   } catch (error) {
     return res.status(500).json({ message: error });

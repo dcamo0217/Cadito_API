@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const userRoutes = require("./routes/user"); //import routes of user
 const postRoutes = require("./routes/post"); //import routes of post
+const cartRoutes = require("./routes/cart"); //import routes of cart
 const cors = require("cors");
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+app.use("/cart", cartRoutes);
 
 //routes
 app.get("/", (req, res) => {
