@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
     }
     if (user_id) {
       const review = await reviewSchema.find({ user_id });
-      console.log(review);
+      return res.status(200).json(review);
     }
   } catch (error) {
     return res.status(500).json({ message: error });
