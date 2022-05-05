@@ -5,8 +5,8 @@ const userRoutes = require("./routes/user"); //import routes of user
 const postRoutes = require("./routes/post"); //import routes of post
 const cartRoutes = require("./routes/cart"); //import routes of cart
 const historyRoutes = require("./routes/history"); //import routes of history
+const reviewRoutes = require("./routes/review"); //import routes of review
 const cors = require("cors");
-
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -17,10 +17,11 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/cart", cartRoutes);
 app.use("/history", historyRoutes);
+app.use("/reviews", reviewRoutes);
 
 //routes
 app.get("/", (req, res) => {
-  res.send("Welcome to my API");
+  res.send("Welcome to Cadito API");
 });
 
 //MongoBD Connection
