@@ -4,6 +4,7 @@ require("dotenv").config();
 const userRoutes = require("./routes/user"); //import routes of user
 const postRoutes = require("./routes/post"); //import routes of post
 const cartRoutes = require("./routes/cart"); //import routes of cart
+const historyRoutes = require("./routes/history"); //import routes of history
 const cors = require("cors");
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/cart", cartRoutes);
+app.use("/history", historyRoutes);
 
 //routes
 app.get("/", (req, res) => {
