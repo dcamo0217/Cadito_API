@@ -13,7 +13,6 @@ router.post("/", async (req, res) => {
       rating,
       description,
     });
-    console.log(review);
     return res.status(201).json(review);
   } catch (error) {
     return res.status(500).json({ message: error });

@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
         return res.status(404).json({ message: "Post not found" });
       }
     } else {
-      const posts = await postSchema.find({ user_id });
+      const posts = await postSchema.find({ owner_id: user_id });
       return res.status(200).json(posts);
     }
   } catch (error) {
